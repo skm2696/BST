@@ -44,7 +44,7 @@ void BinarySearchTree<Z>::der::del(Z x){
 		if (r->r) r = r->r; else r = nullptr;
 		return;
 	}
-	if ((x == D) && (!r)) {
+	if ((x == D) && (!r)) { 
 		D = l->D;
 		if (l->r) r = l->r; else r = nullptr;
 		if (l->l) l = l->l; else l = nullptr;
