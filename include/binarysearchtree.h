@@ -5,77 +5,77 @@
 #include <fstream>
 using namespace std;
 
-template <class Z>
+template <class T>
 class BinarySearchTree;
 
-template <class Z>
+template <class T>
 ostream & operator<<(ostream & out, BinarySearchTree<Z> &tree);
 
-template <class Z>
+template <class T>
 ofstream & operator<<(ofstream & fout, BinarySearchTree<Z> &tree);
 
-template <class Z>
+template <class T>
 ifstream & operator >> (ifstream & fin, BinarySearchTree<Z> &tree);
-class Iscluchenia {
+class Exception {
 	char* err;
 public:
-	Iscluchenia(char* _err);
+	Exception(char* _err);
 	char* what();
 };
 
-class Uzhe_est : public Iscluchenia{
+class Match_elem : public Exception{
 public:
-	Uzhe_est();
+	Match_elem();
 };
 
-class File_Not_Open : public Iscluchenia{
+class File_Not_Open : public Exception{
 public:
 	File_Not_Open();
 };
 
-class Pustoe_derevo : public Iscluchenia{
+class Pustoe_derevo : public Exception{
 public:
 	Pustoe_derevo();
 };
 
-class Element_not_found : public Iscluchenia{  
+class Element_not_found : public Exception{  
 public:
 	Element_not_found();
 };
 
-class Tree_Was_Deleted : public Iscluchenia{  
+class Tree_Was_Deleted : public Exception{  
 public:
 	Tree_Was_Deleted();
 };
 
-template <class Z>
+template <class T>
 class BinarySearchTree{
 public:
 	BinarySearchTree();
-	bool add(Z x);
-	bool search(Z x);
-	bool del(Z x);
+	bool add(T x);
+	bool search(T x);
+	bool del(T x);
 	void sozdaem_derevo_snova();
-	friend ostream & operator<< <>(ostream &out, BinarySearchTree<Z> &tree);
-	friend ofstream & operator<< <>(ofstream &fout, BinarySearchTree<Z> &tree);		
-	friend ifstream & operator>> <>(ifstream &fin, BinarySearchTree<Z> &tree);
+	friend ostream & operator<< <>(ostream &out, BinarySearchTree<T> &tree);
+	friend ofstream & operator<< <>(ofstream &fout, BinarySearchTree<T> &tree);		
+	friend ifstream & operator>> <>(ifstream &fin, BinarySearchTree<T> &tree);
 private:
 	class der; 
 	der* root;
 };
 
-template <class Z>
-class BinarySearchTree<Z>::der{
+template <class T>
+class BinarySearchTree<T>::der{
 public:
-	der(Z x);
-	void add(Z x);
-	bool search(Z x);
+	der(T x);
+	void add(T x);
+	bool search(T x);
 	bool print_console();
 	bool print_file(ofstream &fout);
-	void del(Z x);
-	Z min(der* G);
+	void del(T x);
+	T min(der* G);
 private:
-	Z D;
+	T D;
 	der *l;
 	der *r;
 };
