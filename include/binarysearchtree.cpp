@@ -204,7 +204,7 @@ ostream & operator <<(ostream & out, BinarySearchTree<T> & tree)
 	else throw Empty_tree();
 }
 template <class T>
-ifstream & operator >>(ifstream & fin, BinarySearchTree<Z> & tree)
+ifstream & operator >>(ifstream & fin, BinarySearchTree<T> & tree)
 {
 	if (!fin.is_open()) throw File_Not_Open();
 	T x;
