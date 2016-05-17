@@ -16,26 +16,30 @@ ofstream & operator<<(ofstream & fout, BinarySearchTree<Z> &tree);
 
 template <class T>
 ifstream & operator >> (ifstream & fin, BinarySearchTree<Z> &tree);
-class Exception {
+class Exception
+{
 	char* err;
 public:
 	Exception(char* _err);
 	char* what();
 };
 
-class Match_elem : public Exception{
+class Match_elem : public Exception
+{
 public:
 	Match_elem();
 };
 
-class File_Not_Open : public Exception{
+class File_Not_Open : public Exception
+{
 public:
 	File_Not_Open();
 };
 
-class Pustoe_derevo : public Exception{
+class Empty_tree : public Exception
+{
 public:
-	Pustoe_derevo();
+	Empty_tree();
 };
 
 class Element_not_found : public Exception{  
@@ -55,29 +59,29 @@ public:
 	bool add(T x);
 	bool search(T x);
 	bool del(T x);
-	void sozdaem_derevo_snova();
+	void new_der();
 	friend ostream & operator<< <>(ostream &out, BinarySearchTree<T> &tree);
 	friend ofstream & operator<< <>(ofstream &fout, BinarySearchTree<T> &tree);		
 	friend ifstream & operator>> <>(ifstream &fin, BinarySearchTree<T> &tree);
 private:
-	class der; 
-	der* root;
+	class ELEM; 
+	ELEM* root;
 };
 
 template <class T>
-class BinarySearchTree<T>::der{
+class BinarySearchTree<T>::ELEM{
 public:
-	der(T x);
+	ELEM(T x);
 	void add(T x);
 	bool search(T x);
 	bool print_console();
 	bool print_file(ofstream &fout);
 	void del(T x);
-	T min(der* G);
+	T min(ELEM* G);
 private:
 	T D;
-	der *l;
-	der *r;
+	ELEM *l;
+	ELEM *r;
 };
 
 
