@@ -9,13 +9,13 @@ template <class T>
 class BinarySearchTree;
 
 template <class T>
-ostream & operator<<(ostream & out, BinarySearchTree<Z> &tree);
+ostream & operator<<(ostream & out, BinarySearchTree<T> &tree);
 
 template <class T>
-ofstream & operator<<(ofstream & fout, BinarySearchTree<Z> &tree);
+ofstream & operator<<(ofstream & fout, BinarySearchTree<T> &tree);
 
 template <class T>
-ifstream & operator >> (ifstream & fin, BinarySearchTree<Z> &tree);
+ifstream & operator >> (ifstream & fin, BinarySearchTree<T> &tree);
 class Exception
 {
 	char* err;
