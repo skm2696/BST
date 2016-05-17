@@ -260,7 +260,7 @@ SCENARIO("Iscl_add", "[I_a]"){
 BinarySearchTree<int> tree; int O=0; 
 tree.add(1);
 try{tree.add(1);}
-catch(Uzhe_est &){O++;}
+catch(Match_elem &){O++;}
 REQUIRE(O==1);
 }
 
@@ -274,14 +274,14 @@ REQUIRE(O==1);
 SCENARIO("Iscl_pust1", "[I_p1]"){
 BinarySearchTree<int> tree; int O=0; 
 try{cout<<tree;}
-catch(Pustoe_derevo &){O++;}
+catch(Empty_tree &){O++;}
 REQUIRE(O==1);
 }
 
 SCENARIO("Iscl_pust2", "[I_p2]"){
 BinarySearchTree<int> tree; int O=0; ofstream fout("print_file_test_double.txt", ios::app);
 try{fout<<tree;}
-catch(Pustoe_derevo &){O++;}
+catch(Empty_tree &){O++;}
 fout.close();
 REQUIRE(O==1);
 }
@@ -289,7 +289,7 @@ REQUIRE(O==1);
 SCENARIO("Iscl_del1", "[del1]"){
 BinarySearchTree<int> tree; int O=0;
 try{tree.del(777);}
-catch(Pustoe_derevo &){O++;}
+catch(Empty_tree &){O++;}
 REQUIRE(O==1);
 }
 
