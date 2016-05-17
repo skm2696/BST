@@ -2,18 +2,24 @@
 #include <iostream>
 #include <fstream>
 using namespace std;
-Iscluchenia::Iscluchenia(char* _err) : err(_err){}
-char* Iscluchenia::what() { return err; }
-Uzhe_est::Uzhe_est() : Iscluchenia("ERROR: etot element uzhe dobavlen!") {}
-File_Not_Open::File_Not_Open() : Iscluchenia("ERROR: file not open!") {}
-Pustoe_derevo::Pustoe_derevo() : Iscluchenia("ERROR: derevo pusto!") {}
-Element_not_found::Element_not_found() : Iscluchenia("ERROR: takogo elementa v dereve net!") {}
-Tree_Was_Deleted::Tree_Was_Deleted() : Iscluchenia("ERROR: derevo udaleno!") {}
+Exception::Exception(char* _err) : err(_err){}
+char* Exception::what() 
+{ return err; }
+Match_elem::Match_elem() : Exception("ERROR: etot element uzhe dobavlen!")
+{}
+File_Not_Open::File_Not_Open() : Exception("ERROR: file not open!")
+{}
+Empty_tree::Empty_tree() : Exception("ERROR: derevo pusto!")
+{}
+Element_not_found::Element_not_found() :Exception("ERROR: takogo elementa v dereve net!")
+{}
+Tree_Was_Deleted::Tree_Was_Deleted() : Exception("ERROR: derevo udaleno!") 
+{}
 
-template <class Z>
-BinarySearchTree<Z>::der::der(Z x) : D(x), l(nullptr), r(nullptr){}
-template <class Z>
-void BinarySearchTree<Z>::der::add(Z x){
+template <class T>
+BinarySearchTree<T>::der::der(T x) : D(x), l(nullptr), r(nullptr){}
+template <class T>
+void BinarySearchTree<T>::der::add(T x){
 	if (x < D){
 		if (l != nullptr) l->add(x);
 		if (l == nullptr) l = new der(x);
@@ -23,20 +29,20 @@ void BinarySearchTree<Z>::der::add(Z x){
 		if (r == nullptr) r = new der(x);
 	}
 }
-template <class Z>
-bool BinarySearchTree<Z>::der::search(Z x){
+template <class T>
+bool BinarySearchTree<T>::der::search(T x){
 	if (x == D) { return true; }
 	if (x > D) if (r != nullptr) return(r->search(x));
 	if (x < D) if (l != nullptr) return(l->search(x));
 	return false;
 }
-template <class Z>
-Z BinarySearchTree<Z>::der::min(der* G){
+template <class T>
+T BinarySearchTree<T>::der::min(der* G){
 	if (G->l) return min(G->l);
 	else return G->D;
 }
-template <class Z>
-void BinarySearchTree<Z>::der::del(Z x){
+template <class T>
+void BinarySearchTree<T>::der::del(T x){
 	if ((x == D) && (!l) && (!r)) { delete this; throw Tree_Was_Deleted(); }
 	if ((x == D) && (!l)) {
 		D = r->D;
@@ -65,13 +71,13 @@ void BinarySearchTree<Z>::der::del(Z x){
 	if ((x == D) && (l) && (r)) { D = min(r); if (r->D != min(r)) r->del(min(r)); else r = nullptr; return; }
 }
 
-template <class Z>
-void BinarySearchTree<Z>::sozdaem_derevo_snova() {
+template <class T>
+void BinarySearchTree<T>::sozdaem_derevo_snova() {
 	root = nullptr;
 }
 
-template <class Z>
-bool BinarySearchTree<Z>::der::print_console(){
+template <class T>
+bool BinarySearchTree<T>::der::print_console(){
 	if (this != nullptr){
 		if (l != nullptr) l->print_console();
 		cout << D << " ";
@@ -80,8 +86,8 @@ bool BinarySearchTree<Z>::der::print_console(){
 	}
 	else return false;
 }
-template <class Z>
-bool BinarySearchTree<Z>::der::print_file(ofstream &fout){
+template <class T>
+bool BinarySearchTree<T>::der::print_file(ofstream &fout){
 	if (this != nullptr){
 		if (fout.is_open()){
 			if (l != nullptr) l->print_file(fout);
@@ -93,37 +99,37 @@ bool BinarySearchTree<Z>::der::print_file(ofstream &fout){
 	return false;
 }
 
-template <class Z>
-BinarySearchTree<Z>::BinarySearchTree() : root(nullptr){}
-template <class Z>
-bool BinarySearchTree<Z>::add(Z x){
-	if (root != nullptr) if (search(x)) throw Uzhe_est();
+template <class T>
+BinarySearchTree<T>::BinarySearchTree() : root(nullptr){}
+template <class T>
+bool BinarySearchTree<T>::add(T x){
+	if (root != nullptr) if (search(x)) throw Match_elem();
 	if (root == nullptr) { root = new der(x); return true; }
 	else { root->add(x); return true; }
 	return false;
 }
-template <class Z>
-bool BinarySearchTree<Z>::search(Z x){
-	if (root == nullptr) throw Pustoe_derevo();
+template <class T>
+bool BinarySearchTree<T>::search(T x){
+	if (root == nullptr) throw Empty_tree();
 	return(root->search(x));
 }
-template <class Z>
-bool BinarySearchTree<Z>::del(Z x){
-	if (root == nullptr) throw Pustoe_derevo();
+template <class T>
+bool BinarySearchTree<T>::del(T x){
+	if (root == nullptr) throw Empty_tree();
 	if (!this->search(x)) throw Element_not_found();
 	try{ root->del(x); }
 	catch (Tree_Was_Deleted &){ throw Tree_Was_Deleted(); }
 	return true;
 }
-template <class Z>
-ostream & operator <<(ostream & out, BinarySearchTree<Z> & tree) {
+template <class T>
+ostream & operator <<(ostream & out, BinarySearchTree<T> & tree) {
 	if (tree.root->print_console()) return out;
-	else throw Pustoe_derevo();
+	else throw Empty_tree();
 }
-template <class Z>
+template <class T>
 ifstream & operator >>(ifstream & fin, BinarySearchTree<Z> & tree) {
 	if (!fin.is_open()) throw File_Not_Open();
-	Z x;
+	T x;
 	while (!fin.eof()){
 		fin >> x;
 		if(x!=-1)tree.add(x);
@@ -131,8 +137,8 @@ ifstream & operator >>(ifstream & fin, BinarySearchTree<Z> & tree) {
 	}
 	return fin;
 }
-template <class Z>
-ofstream & operator <<(ofstream & fout, BinarySearchTree<Z> & tree) {
+template <class T>
+ofstream & operator <<(ofstream & fout, BinarySearchTree<T> & tree) {
 	if (tree.root->print_file(fout)) return fout;
-	else throw Pustoe_derevo();
+	else throw Empty_tree();
 }
