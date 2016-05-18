@@ -18,7 +18,8 @@ Tree_Was_Deleted::Tree_Was_Deleted() : Exception("ERROR: derevo udaleno!")
 template <class T>
 BinarySearchTree<T>::ELEM::ELEM(T x) : D(x), l(nullptr), r(nullptr){}
 template <class T>
-void BinarySearchTree<T>::ELEM::do_free(){
+void BinarySearchTree<T>::ELEM::do_free()
+{
 	f:
 	if (this){
 		if (l){
