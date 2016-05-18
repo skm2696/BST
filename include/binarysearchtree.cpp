@@ -16,9 +16,9 @@ Element_not_found::Element_not_found() :Exception("ERROR: takogo elementa v dere
 Tree_Was_Deleted::Tree_Was_Deleted() : Exception("ERROR: derevo udaleno!") 
 {}
 template <class T>
-BinarySearchTree<T>::der::der(T x) : D(x), l(nullptr), r(nullptr){}
+BinarySearchTree<T>::ELEM::ELEM(T x) : D(x), l(nullptr), r(nullptr){}
 template <class T>
-void BinarySearchTree<T>::der::do_free(){
+void BinarySearchTree<T>::ELEM::do_free(){
 	f:
 	if (this){
 		if (l){
