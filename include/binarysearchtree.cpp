@@ -34,8 +34,7 @@ void BinarySearchTree<T>::ELEM::do_free()
 	}
 }
 
-template <class T>
-BinarySearchTree<T>::ELEM::ELEM(T x) : D(x), l(nullptr), r(nullptr){}
+
 template <class T>
 void BinarySearchTree<T>::ELEM::add(T x)
 {
