@@ -56,7 +56,7 @@ template <class T>
 class BinarySearchTree{
 public:
 	BinarySearchTree();
-	BinarySearchTree(initializer_list<Z> L);
+	BinarySearchTree(initializer_list<T> L);
 	~BinarySearchTree();
 	bool add(T x);
 	bool search(T x);
