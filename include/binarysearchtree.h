@@ -56,6 +56,8 @@ template <class T>
 class BinarySearchTree{
 public:
 	BinarySearchTree();
+	BinarySearchTree(initializer_list<Z> L);
+	~BinarySearchTree();
 	bool add(T x);
 	bool search(T x);
 	bool del(T x);
@@ -77,6 +79,7 @@ public:
 	bool print_console();
 	bool print_file(ofstream &fout);
 	void del(T x);
+	void do_free();
 	T min(ELEM* G);
 private:
 	T D;
