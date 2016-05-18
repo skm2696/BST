@@ -210,8 +210,7 @@ ifstream & operator >>(ifstream & fin, BinarySearchTree<T> & tree)
 	T x;
 	while (!fin.eof())
 	{
-		fin >> x;
-		if(x!=-1)tree.add(x);
+		if (fin>>x) tree.add(x);
 		else break;
 	}
 	return fin;
