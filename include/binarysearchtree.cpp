@@ -15,6 +15,23 @@ Element_not_found::Element_not_found() :Exception("ERROR: takogo elementa v dere
 {}
 Tree_Was_Deleted::Tree_Was_Deleted() : Exception("ERROR: derevo udaleno!") 
 {}
+template <class T>
+BinarySearchTree<T>::der::der(T x) : D(x), l(nullptr), r(nullptr){}
+template <class T>
+void BinarySearchTree<T>::der::do_free(){
+	f:
+	if (this){
+		if (l){
+			if ((l->l) || (l->r)) l->do_free();
+			else { delete l; l = nullptr; }
+		}
+		if (r){
+			if ((r->l) || (r->r)) r->do_free();
+			else { delete r;  r = nullptr; }
+		}
+		if (l || r) goto f;
+	}
+}
 
 template <class T>
 BinarySearchTree<T>::ELEM::ELEM(T x) : D(x), l(nullptr), r(nullptr){}
@@ -164,6 +181,18 @@ bool BinarySearchTree<T>::ELEM::print_file(ofstream &fout){
 
 template <class T>
 BinarySearchTree<T>::BinarySearchTree() : root(nullptr){}
+template <class T>
+BinarySearchTree<T>::BinarySearchTree(initializer_list<T> L){
+	root = nullptr;
+	for (int i : L)
+	{
+		add(i);
+	}
+}
+template <class T>
+BinarySearchTree<T>::~BinarySearchTree() {
+	if(root) {root->do_free(); delete root;}
+}
 template <class T>
 bool BinarySearchTree<T>::add(T x)
 {
