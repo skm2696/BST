@@ -129,7 +129,7 @@ bool BinarySearchTree<T>::ELEM::print_file(ofstream &fout) {
 template <class T>
 bool BinarySearchTree<T>::add(T x) {
 	if (root != nullptr) if (Search(x)) throw Exist();
-	if (root == nullptr) { root = new Root(x); return true; }
+	if (root == nullptr) { root = new ELEM(x); return true; }
 	else { root->add(x); return true; }
 	return false;
 }
