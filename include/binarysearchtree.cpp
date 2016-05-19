@@ -1,22 +1,22 @@
 #include "binarysearchtree.h" 
 
 template <class T>
-size_t Tree<T>::size() {
+size_t BinarySearchTree<T>::size() {
 	if (root) {
 		root->sizeRoot();
 	}
 	else return 0;
 }
 template <class T>
-size_t Tree<T>::Root::sizeRoot() {
+size_t BinarySearchTree<T>::Root::sizeRoot() {
 	return size_;
 }
 
 
 template <class T>
-Tree<T>::Root::Root(T x) : D(x), l(nullptr), r(nullptr),size_(1) {}
+BinarySearchTree<T>::Root::Root(T x) : D(x), l(nullptr), r(nullptr),size_(1) {}
 template <class T>
-Tree<T>::Tree(const std::initializer_list<T> & ilist) {
+BinarySearchTree<T>::BinarySearchTree(const std::initializer_list<T> & ilist) {
 
 	for (T element : ilist) {
 		Insert(element);
@@ -24,13 +24,13 @@ Tree<T>::Tree(const std::initializer_list<T> & ilist) {
 };
 
 template <class T>
-Tree<T>::~Tree() {
+BinarySearchTree<T>::~BinarySearchTree() {
 	if (root!=nullptr) {
 		root->destroy(root);
 	}
 }
 template <class T>
-void Tree<T>::Root::destroy(Root* root) {
+void BinarySearchTree<T>::Root::destroy(Root* root) {
 
 	if (root->l)
 	{
@@ -45,13 +45,13 @@ void Tree<T>::Root::destroy(Root* root) {
 }
 
 template <class T>
-T Tree<T>::Root::find_min(Root* tree) {
+T BinarySearchTree<T>::Root::find_min(Root* tree) {
 	if (tree->l) return find_min(tree->l);
 	else return tree->D;
 }
 
 template <class T>
-void Tree<T>::Root::del(T x) {
+void BinarySearchTree<T>::Root::del(T x) {
 	if ((x == D) && (!l)) {
 		D = r->D;
 		if (r->l) l = r->l; else { delete[] l; l = nullptr; --size_; }
@@ -82,7 +82,7 @@ void Tree<T>::Root::del(T x) {
 }
 
 template <class T>
-void Tree<T>::Root::Insert(T x) {
+void BinarySearchTree<T>::Root::Insert(T x) {
 	if (x < D) {
 		if (l != nullptr) l->Insert(x);
 		if (l == nullptr) l = new Root(x);
@@ -95,14 +95,14 @@ void Tree<T>::Root::Insert(T x) {
 	}
 }
 template <class T>
-bool Tree<T>::Root::Search(T x) {
+bool BinarySearchTree<T>::Root::Search(T x) {
 	if (x == D) { return true; }
 	if (x > D) if (r != nullptr) return(r->Search(x));
 	if (x < D) if (l != nullptr) return(l->Search(x));
 	return false;
 }
 template <class T>
-bool Tree<T>::Root::print_console() {
+bool BinarySearchTree<T>::Root::print_console() {
 	if (this != nullptr) {
 		if (l != nullptr) l->print_console();
 		cout << D << " ";
@@ -115,7 +115,7 @@ bool Tree<T>::Root::print_console() {
 	}
 }
 template <class T>
-bool Tree<T>::Root::print_file(ofstream &fout) {
+bool BinarySearchTree<T>::Root::print_file(ofstream &fout) {
 	if (this != nullptr) {
 		if (fout.is_open()) {
 			if (l != nullptr) l->print_file(fout);
@@ -127,19 +127,19 @@ bool Tree<T>::Root::print_file(ofstream &fout) {
 	return false;
 }
 template <class T>
-bool Tree<T>::Insert(T x) {
+bool BinarySearchTree<T>::Insert(T x) {
 	if (root != nullptr) if (Search(x)) throw Exist();
 	if (root == nullptr) { root = new Root(x); return true; }
 	else { root->Insert(x); return true; }
 	return false;
 }
 template <class T>
-bool Tree<T>::Search(T x) {
+bool BinarySearchTree<T>::Search(T x) {
 	if (root == nullptr) throw Empty();
 	return(root->Search(x));
 }
 template <class T>
-bool Tree<T>::del(T x) {
+bool BinarySearchTree<T>::del(T x) {
 	if (root == nullptr) throw Empty();
 	if (!this->Search(x)) {return false;}
 	if (this->size()==1) {
@@ -155,12 +155,12 @@ bool Tree<T>::del(T x) {
 }
 
 template <class T>
-ostream & operator <<(ostream & out, Tree<T> & tree) {
+ostream & operator <<(ostream & out, BinarySearchTree<T> & tree) {
 	if (tree.root->print_console()) return out;
 	else throw Empty();
 }
 template <class T>
-ifstream& operator >>(ifstream & fin, Tree<T> & tree) {
+ifstream& operator >>(ifstream & fin, BinarySearchTree<T> & tree) {
 	if (!fin.is_open()) throw File_Not_Open();
 	T x;
 	while (!fin.eof()) {
@@ -170,12 +170,12 @@ ifstream& operator >>(ifstream & fin, Tree<T> & tree) {
 	return fin;
 }
 template <class T>
-ofstream & operator <<(ofstream & fout, Tree<T> & tree) {
+ofstream & operator <<(ofstream & fout, BinarySearchTree<T> & tree) {
 	if (tree.root->print_file(fout)) return fout; else throw Empty();
 }
 
 template <class T>
-istream & operator >> (istream & in, Tree<T> & tree) {
+istream & operator >> (istream & in, BinarySearchTree<T> & tree) {
 	size_t size;
 	if (in >> size) {
 		for (int i = 0; i < size; ++i) {
@@ -201,7 +201,7 @@ istream & operator >> (istream & in, Tree<T> & tree) {
 
 
 template <class T>
-bool Tree<T>::operator == (const Tree<T> &tree) 
+bool BinarySearchTree<T>::operator == (const BinarySearchTree<T> &tree) 
 {
 	
 
@@ -218,7 +218,7 @@ bool Tree<T>::operator == (const Tree<T> &tree)
 
 
 template <class T>
-auto Tree<T>::fillListOfNodes(list<const Root*> & listOfNodes, const Root* root) ->void
+auto BinarySearchTree<T>::fillListOfNodes(list<const Root*> & listOfNodes, const Root* root) ->void
 {
 	if (root) {
 		if (root->l != nullptr) {
@@ -234,45 +234,45 @@ auto Tree<T>::fillListOfNodes(list<const Root*> & listOfNodes, const Root* root)
 }
 
 template <class T>
-auto Tree<T>::begin() const->iterator
+auto BinarySearchTree<T>::begin() const->iterator
 {
 	return iterator(root);
 }
 
 template <class T>
-auto Tree<T>::end() const->iterator
+auto BinarySearchTree<T>::end() const->iterator
 {
 	return iterator();
 }
 
 template <class T>
-Tree<T>::NodeIterator::NodeIterator(const Root* root) : NodeIterator()
+BinarySearchTree<T>::NodeIterator::NodeIterator(const Root* root) : NodeIterator()
 {
 	fillListOfNodes(history_, root);
 }
 
 template <class T>
-auto Tree<T>::NodeIterator::operator == (const NodeIterator & _iterator) -> bool
+auto BinarySearchTree<T>::NodeIterator::operator == (const NodeIterator & _iterator) -> bool
 {
 	cout << "asd";
 	return this->history_ == _iterator.history_;
 }
 
 template <class T>
-auto Tree<T>::NodeIterator::operator != (const NodeIterator & _iterator) -> bool
+auto BinarySearchTree<T>::NodeIterator::operator != (const NodeIterator & _iterator) -> bool
 {
 	return !this->operator==(_iterator);
 }
 
 template <typename T>
-auto Tree<T>::NodeIterator::operator ++() -> NodeIterator
+auto BinarySearchTree<T>::NodeIterator::operator ++() -> NodeIterator
 {
 	history_.pop_front();
 	return *this;
 }
 
 template <typename T>
-auto Tree<T>::NodeIterator::operator *() const -> const T &
+auto BinarySearchTree<T>::NodeIterator::operator *() const -> const T &
 {
 	return history_.front()->D;
 }
