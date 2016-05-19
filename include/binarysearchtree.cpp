@@ -18,7 +18,7 @@ template <class T>
 BinarySearchTree<T>::BinarySearchTree(const std::initializer_list<T> & ilist) {
 
 	for (T element : ilist) {
-		Insert(element);
+		add(element);
 	}
 };
 
