@@ -4,7 +4,7 @@
 using namespace std;
 
 template <class T>
-class Tree;
+class BinarySearchTree;
 template <class T>
 ostream & operator<<(ostream & out, Tree<T> &tree);
 
@@ -52,7 +52,7 @@ Empty::Empty() : Exceptions("ERROR: The Binary Tree is empty!") {}
 Deleted::Deleted() : Exceptions("ERROR: It was deleted before") {}
 Error_stream::Error_stream() : Exceptions("ERROR: Stream error") {}
 template <class T>
-class Tree {
+class BinarySearchTree {
 public:
 	class NodeIterator;
 	using iterator = NodeIterator;
@@ -89,7 +89,7 @@ public:
 };
 
 template <class T>
-class Tree<T>::Root {
+class BinarySearchTree<T>::Root {
 public:
 	Root(T x);
 	void destroy(Root* root);
