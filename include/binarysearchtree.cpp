@@ -82,14 +82,14 @@ void BinarySearchTree<T>::ELEM::del(T x) {
 }
 
 template <class T>
-void BinarySearchTree<T>::ELEM::Insert(T x) {
+void BinarySearchTree<T>::ELEM::add(T x) {
 	if (x < D) {
-		if (l != nullptr) l->Insert(x);
+		if (l != nullptr) l->add(x);
 		if (l == nullptr) l = new ELEM(x);
 		++size_;
 	}
 	if (x>D) {
-		if (r != nullptr) r->Insert(x);
+		if (r != nullptr) r->add(x);
 		if (r == nullptr) r = new ELEM(x);
 		++size_;
 	}
@@ -127,10 +127,10 @@ bool BinarySearchTree<T>::ELEM::print_file(ofstream &fout) {
 	return false;
 }
 template <class T>
-bool BinarySearchTree<T>::Insert(T x) {
+bool BinarySearchTree<T>::add(T x) {
 	if (root != nullptr) if (Search(x)) throw Exist();
 	if (root == nullptr) { root = new Root(x); return true; }
-	else { root->Insert(x); return true; }
+	else { root->add(x); return true; }
 	return false;
 }
 template <class T>
@@ -164,7 +164,7 @@ ifstream& operator >>(ifstream & fin, BinarySearchTree<T> & tree) {
 	if (!fin.is_open()) throw File_Not_Open();
 	T x;
 	while (!fin.eof()) {
-		if (fin>>x) tree.Insert(x);
+		if (fin>>x) tree.add(x);
 		else break;
 	}
 	return fin;
@@ -181,7 +181,7 @@ istream & operator >> (istream & in, BinarySearchTree<T> & tree) {
 		for (int i = 0; i < size; ++i) {
 			T temp;
 			if (in >> temp) {
-				tree.Insert(temp);
+				tree.add(temp);
 			}
 			else {
 				throw
