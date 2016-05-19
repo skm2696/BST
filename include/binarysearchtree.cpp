@@ -8,13 +8,13 @@ size_t BinarySearchTree<T>::size() {
 	else return 0;
 }
 template <class T>
-size_t BinarySearchTree<T>::Root::sizeRoot() {
+size_t BinarySearchTree<T>::ELEM::sizeRoot() {
 	return size_;
 }
 
 
 template <class T>
-BinarySearchTree<T>::Root::Root(T x) : D(x), l(nullptr), r(nullptr),size_(1) {}
+BinarySearchTree<T>::ELEM::ELEM(T x) : D(x), l(nullptr), r(nullptr),size_(1) {}
 template <class T>
 BinarySearchTree<T>::BinarySearchTree(const std::initializer_list<T> & ilist) {
 
@@ -30,7 +30,7 @@ BinarySearchTree<T>::~BinarySearchTree() {
 	}
 }
 template <class T>
-void BinarySearchTree<T>::Root::destroy(Root* root) {
+void BinarySearchTree<T>::ELEM::destroy(ELEM* root) {
 
 	if (root->l)
 	{
@@ -45,13 +45,13 @@ void BinarySearchTree<T>::Root::destroy(Root* root) {
 }
 
 template <class T>
-T BinarySearchTree<T>::Root::find_min(Root* tree) {
+T BinarySearchTree<T>::ELEM::find_min(ELEM* tree) {
 	if (tree->l) return find_min(tree->l);
 	else return tree->D;
 }
 
 template <class T>
-void BinarySearchTree<T>::Root::del(T x) {
+void BinarySearchTree<T>::ELEM::del(T x) {
 	if ((x == D) && (!l)) {
 		D = r->D;
 		if (r->l) l = r->l; else { delete[] l; l = nullptr; --size_; }
@@ -82,27 +82,27 @@ void BinarySearchTree<T>::Root::del(T x) {
 }
 
 template <class T>
-void BinarySearchTree<T>::Root::Insert(T x) {
+void BinarySearchTree<T>::ELEM::Insert(T x) {
 	if (x < D) {
 		if (l != nullptr) l->Insert(x);
-		if (l == nullptr) l = new Root(x);
+		if (l == nullptr) l = new ELEM(x);
 		++size_;
 	}
 	if (x>D) {
 		if (r != nullptr) r->Insert(x);
-		if (r == nullptr) r = new Root(x);
+		if (r == nullptr) r = new ELEM(x);
 		++size_;
 	}
 }
 template <class T>
-bool BinarySearchTree<T>::Root::Search(T x) {
+bool BinarySearchTree<T>::ELEM::Search(T x) {
 	if (x == D) { return true; }
 	if (x > D) if (r != nullptr) return(r->Search(x));
 	if (x < D) if (l != nullptr) return(l->Search(x));
 	return false;
 }
 template <class T>
-bool BinarySearchTree<T>::Root::print_console() {
+bool BinarySearchTree<T>::ELEM::print_console() {
 	if (this != nullptr) {
 		if (l != nullptr) l->print_console();
 		cout << D << " ";
@@ -115,7 +115,7 @@ bool BinarySearchTree<T>::Root::print_console() {
 	}
 }
 template <class T>
-bool BinarySearchTree<T>::Root::print_file(ofstream &fout) {
+bool BinarySearchTree<T>::ELEM::print_file(ofstream &fout) {
 	if (this != nullptr) {
 		if (fout.is_open()) {
 			if (l != nullptr) l->print_file(fout);
@@ -218,7 +218,7 @@ bool BinarySearchTree<T>::operator == (const BinarySearchTree<T> &tree)
 
 
 template <class T>
-auto BinarySearchTree<T>::fillListOfNodes(list<const Root*> & listOfNodes, const Root* root) ->void
+auto BinarySearchTree<T>::fillListOfNodes(list<const ELEM*> & listOfNodes, const ELEM* root) ->void
 {
 	if (root) {
 		if (root->l != nullptr) {
@@ -246,7 +246,7 @@ auto BinarySearchTree<T>::end() const->iterator
 }
 
 template <class T>
-BinarySearchTree<T>::NodeIterator::NodeIterator(const Root* root) : NodeIterator()
+BinarySearchTree<T>::NodeIterator::NodeIterator(const ELEM* root) : NodeIterator()
 {
 	fillListOfNodes(history_, root);
 }
