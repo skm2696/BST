@@ -1,4 +1,4 @@
-#include "tree.h" 
+#include "binarysearchtree.h" 
 
 template <class T>
 size_t Tree<T>::size() {
