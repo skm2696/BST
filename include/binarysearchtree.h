@@ -6,16 +6,16 @@ using namespace std;
 template <class T>
 class BinarySearchTree;
 template <class T>
-ostream & operator<<(ostream & out, Tree<T> &tree);
+ostream & operator<<(ostream & out, BinarySearchTree<T> &tree);
 
 template <class T>
-ofstream & operator<<(ofstream & fout, Tree<T> &tree);
+ofstream & operator<<(ofstream & fout, BinarySearchTree<T> &tree);
 
 template <class T>
-ifstream & operator >> (ifstream & fin, Tree<T> &tree);
+ifstream & operator >> (ifstream & fin, BinarySearchTree<T> &tree);
 
 template <class T>
-istream & operator >> (istream & in, Tree<T> &tree);
+istream & operator >> (istream & in, BinarySearchTree<T> &tree);
 //Класс исключений 
 class Exceptions {
 	char* err;
@@ -57,20 +57,20 @@ public:
 	class NodeIterator;
 	using iterator = NodeIterator;
 
-	Tree() :root(nullptr) {};
-	Tree(const initializer_list<T> & ilist);
-	~Tree();
-	bool operator == (const Tree<T> & tree);
+	BinarySearchTree() :root(nullptr) {};
+	BinarySearchTree(const initializer_list<T> & ilist);
+	~BinarySearchTree();
+	bool operator == (const BinarySearchTree<T> & tree);
 	auto begin() const->iterator;
 	auto end() const->iterator;
 	bool Insert(T x);// Добавление элемента 
 	bool Search(T x);// Поиск элемента 
 	bool del(T x); //удаление узла дерева 
 	size_t size();
-	friend ostream & operator<< <>(ostream &out, Tree<T> &tree);
-	friend ofstream & operator<< <>(ofstream &fout, Tree<T> &tree);
-	friend ifstream & operator>> <>(ifstream &fin, Tree<T> &tree);
-	friend istream & operator >> <>(istream & in, Tree<T> &tree);
+	friend ostream & operator<< <>(ostream &out, BinarySearchTree<T> &tree);
+	friend ofstream & operator<< <>(ofstream &fout, BinarySearchTree<T> &tree);
+	friend ifstream & operator>> <>(ifstream &fin, BinarySearchTree<T> &tree);
+	friend istream & operator >> <>(istream & in, BinarySearchTree<T> &tree);
 	class Root;
 	Root* root; //корень дерева 
 
