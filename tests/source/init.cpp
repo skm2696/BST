@@ -7,9 +7,9 @@ using namespace std;
                   
 SCENARIO("Add_int", "[add]"){
   BinarySearchTree<int> tree;
-  REQUIRE(tree.Insert(7));
-  REQUIRE(tree.Insert(3));
-  REQUIRE(tree.Insert(5));
+  REQUIRE(tree.add(7));
+  REQUIRE(tree.add(3));
+  REQUIRE(tree.add(5));
   REQUIRE(tree.Search(3));
   REQUIRE(tree.Search(5));
   REQUIRE(tree.Search(7));
@@ -17,9 +17,9 @@ SCENARIO("Add_int", "[add]"){
 
 SCENARIO("Add_char", "[add_c]"){
   BinarySearchTree<char> tree;
-  REQUIRE(tree.Insert(5));
-  REQUIRE(tree.Insert(4));
-  REQUIRE(tree.Insert(6));
+  REQUIRE(tree.add(5));
+  REQUIRE(tree.add(4));
+  REQUIRE(tree.add(6));
   REQUIRE(tree.Search(4));
   REQUIRE(tree.Search(5));
   REQUIRE(tree.Search(6));
@@ -27,9 +27,9 @@ SCENARIO("Add_char", "[add_c]"){
 
 SCENARIO("Add_double", "[add_d]"){
   BinarySearchTree<double> tree;
-  REQUIRE(tree.Insert(7.62));
-  REQUIRE(tree.Insert(3.14));
-  REQUIRE(tree.Insert(5.85));
+  REQUIRE(tree.add(7.62));
+  REQUIRE(tree.add(3.14));
+  REQUIRE(tree.add(5.85));
   REQUIRE(tree.Search(3.14));
   REQUIRE(tree.Search(5.85));
   REQUIRE(tree.Search(7.62));
@@ -37,11 +37,11 @@ SCENARIO("Add_double", "[add_d]"){
 
 SCENARIO("Search_int", "[search_i]") {
 BinarySearchTree<int> tree;
-tree.Insert(7);
-tree.Insert(5);
-tree.Insert(1);
-tree.Insert(9);
-tree.Insert(3);
+tree.add(7);
+tree.add(5);
+tree.add(1);
+tree.add(9);
+tree.add(3);
 REQUIRE(tree.Search(7));
 REQUIRE(tree.Search(9));
 REQUIRE(tree.Search(5));
@@ -56,11 +56,11 @@ REQUIRE(!tree.Search(2));
 
 SCENARIO("Search_char", "[search_c]") {
   BinarySearchTree<char> tree;
-tree.Insert(7);
-tree.Insert(5);
-tree.Insert(1);
-tree.Insert(9);
-tree.Insert(3);
+tree.add(7);
+tree.add(5);
+tree.add(1);
+tree.add(9);
+tree.add(3);
 REQUIRE(tree.Search(7));
 REQUIRE(tree.Search(9));
 REQUIRE(tree.Search(5));
@@ -75,11 +75,11 @@ REQUIRE(!tree.Search(2));
 
 SCENARIO("Search_double", "[search_d]") {
 BinarySearchTree<double> tree;
-tree.Insert(7.77);
-tree.Insert(5.85);
-tree.Insert(1.29);
-tree.Insert(9.999);
-tree.Insert(3.14);
+tree.add(7.77);
+tree.add(5.85);
+tree.add(1.29);
+tree.add(9.999);
+tree.add(3.14);
 REQUIRE(tree.Search(7.77));
 REQUIRE(tree.Search(9.999));
 REQUIRE(tree.Search(5.85));
@@ -118,9 +118,9 @@ REQUIRE(tree.Search(17.16));
 
 SCENARIO("Print_file_int","[print_file_i]"){
 BinarySearchTree<int> tree, tree_2; ofstream fout("print.txt", ios::app);
-  tree.Insert(7);
-  tree.Insert(3);
-  tree.Insert(5);
+  tree.add(7);
+  tree.add(3);
+  tree.add(5);
   fout<<tree; fout<<-1;
   fout.close();
   ifstream fin("print.txt");
@@ -133,9 +133,9 @@ BinarySearchTree<int> tree, tree_2; ofstream fout("print.txt", ios::app);
 
 SCENARIO("Print_file_double","[print_file_d]"){
 BinarySearchTree<double> tree, tree_2; ofstream fout("print_db.txt", ios::app);
-  tree.Insert(7.77);
-  tree.Insert(3.33);
-  tree.Insert(5.55);
+  tree.add(7.77);
+  tree.add(3.33);
+  tree.add(5.55);
   fout<<tree; fout<<-1;
   fout.close();
   ifstream fin("print_db.txt");
@@ -149,32 +149,32 @@ BinarySearchTree<double> tree, tree_2; ofstream fout("print_db.txt", ios::app);
 
 SCENARIO("Print_console_int", "[print_console_i]"){
 BinarySearchTree<int> tree;  
-  tree.Insert(7);
-  tree.Insert(3);
-  tree.Insert(5);
+  tree.add(7);
+  tree.add(3);
+  tree.add(5);
   REQUIRE(cout<<tree);
 }
 
 SCENARIO("Print_console_char", "[print_console_c]"){
 BinarySearchTree<char> tree;  
-  tree.Insert(7);
-  tree.Insert(3);
-  tree.Insert(5);
+  tree.add(7);
+  tree.add(3);
+  tree.add(5);
   REQUIRE(cout<<tree);
 }
 
 SCENARIO("Print_console_double", "[print_console_d]"){
 BinarySearchTree<double> tree;  
-  tree.Insert(7);
-  tree.Insert(3);
-  tree.Insert(5);
+  tree.add(7);
+  tree.add(3);
+  tree.add(5);
   REQUIRE(cout<<tree);
 }
 
 SCENARIO("Iscl_add", "[I_a]"){
 BinarySearchTree<int> tree; int O=0; 
-tree.Insert(1);
-try{tree.Insert(1);}
+tree.add(1);
+try{tree.add(1);}
 catch(Exist &e){O++;}
 REQUIRE(O==1);
 }
@@ -189,14 +189,14 @@ REQUIRE(O==1);
 SCENARIO("Iscl_pust1", "[I_p1]"){
 BinarySearchTree<int> tree; int O=0; 
 try{cout<<tree;}
-catch(Empty &e){O++;}
+catch(Empty_tree &e){O++;}
 REQUIRE(O==1);
 }
 
 SCENARIO("Iscl_pust2", "[I_p2]"){
 BinarySearchTree<int> tree; int O=0; ofstream fout("print_db.txt", ios::app);
 try{fout<<tree;}
-catch(Empty &e){O++;}
+catch(Empty_tree &e){O++;}
 fout.close();
 REQUIRE(O==1);
 }
@@ -204,13 +204,13 @@ REQUIRE(O==1);
 
 SCENARIO("Del", "[del]"){
 BinarySearchTree<int> tree; int O=0;
-tree.Insert(1);
-tree.Insert(4);
-tree.Insert(10);
-tree.Insert(3);
-tree.Insert(5);
-tree.Insert(8);
-tree.Insert(11);
+tree.add(1);
+tree.add(4);
+tree.add(10);
+tree.add(3);
+tree.add(5);
+tree.add(8);
+tree.add(11);
 //Удаляем корнень
 REQUIRE(tree.del(1));
 REQUIRE(!tree.Search(1));
