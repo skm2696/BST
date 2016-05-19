@@ -135,12 +135,12 @@ bool BinarySearchTree<T>::add(T x) {
 }
 template <class T>
 bool BinarySearchTree<T>::Search(T x) {
-	if (root == nullptr) throw Empty();
+	if (root == nullptr) throw Empty_tree();
 	return(root->Search(x));
 }
 template <class T>
 bool BinarySearchTree<T>::del(T x) {
-	if (root == nullptr) throw Empty();
+	if (root == nullptr) throw Empty_tree();
 	if (!this->Search(x)) {return false;}
 	if (this->size()==1) {
 		root = nullptr;
@@ -157,7 +157,7 @@ bool BinarySearchTree<T>::del(T x) {
 template <class T>
 ostream & operator <<(ostream & out, BinarySearchTree<T> & tree) {
 	if (tree.root->print_console()) return out;
-	else throw Empty();
+	else throw Empty_tree();
 }
 template <class T>
 ifstream& operator >>(ifstream & fin, BinarySearchTree<T> & tree) {
@@ -171,7 +171,7 @@ ifstream& operator >>(ifstream & fin, BinarySearchTree<T> & tree) {
 }
 template <class T>
 ofstream & operator <<(ofstream & fout, BinarySearchTree<T> & tree) {
-	if (tree.root->print_file(fout)) return fout; else throw Empty();
+	if (tree.root->print_file(fout)) return fout; else throw Empty_tree();
 }
 
 template <class T>
