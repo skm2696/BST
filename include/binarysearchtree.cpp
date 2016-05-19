@@ -1,5 +1,4 @@
 #include "binarysearchtree.h" 
-
 template <class T>
 size_t BinarySearchTree<T>::size() {
 	if (root) {
